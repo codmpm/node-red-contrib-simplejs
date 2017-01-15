@@ -1,0 +1,64 @@
+<script type="text/javascript">
+    RED.nodes.registerType('simplejs', {
+        category: 'function',
+        color: '#fdd0a2',
+        defaults: {
+            name: {value: ""},
+            func: {value: ""}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "function.png",
+        label: function () {
+            return this.name || this.func || "simplejs";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="simplejs">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+
+    <div class="form-row">
+        <label for="node-input-func"><i class="fa fa-archive"></i> Function</label>
+        <select id="node-input-func">
+            <option value=""></option>
+            <option value="parse-str">String()</option>
+            <option value="parse-float">parseFloat()</option>
+            <option value="parse-int">parseInt()</option>
+            <option value="is-nan">isNaN()</option>
+            <option value="is-finite">isFinite()</option>
+        </select>
+
+    </div>
+
+    <div class="form-tips">
+        <b>Tip:</b> If you are using isNaN() oder isFinite() the node
+        won't return anything if the given <code>msg.payload</code> won't
+        satisfy the function.
+        <br>
+        The node won't also return anything if the chosen function did not
+        return anything.
+    </div>
+
+</script>
+
+<script type="text/x-red" data-help-name="simplejs">
+    <p>
+        A simple node which gives you access to some global JavaScript functions.
+        <br>
+        Implemented are <i>String()</i>, <i>parseFloat()</i>, <i>parseInt()</i>, <i>isNaN()</i> and <i>isFinite()</i>.
+        <br>
+        Currently the node can only be used for <code>msg.payload</code>
+
+        <br>
+        <br>
+        More information on these functions can be obtained here:
+        <a href="http://www.w3schools.com/jsref/jsref_obj_global.asp" target="_blank">
+            http://www.w3schools.com/jsref/jsref_obj_global.asp
+        </a>
+    </p>
+</script>
