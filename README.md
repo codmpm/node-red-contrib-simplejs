@@ -16,6 +16,8 @@ Functions
 
 The functions are documented here: http://www.w3schools.com/jsref/jsref_obj_global.asp
 
+_String()_ uses `toString()` is present on `msg.payload`.
+
 Usage
 -
 Simply drag the node to your flow and select a desired function

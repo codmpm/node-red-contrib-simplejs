@@ -30,7 +30,13 @@ module.exports = function (RED) {
             switch (this.func) {
 
                 case 'parse-str':
-                    msg.payload = String(msg.payload);
+
+                    if (typeof msg.payload.toString == 'function') {
+                        msg.payload = msg.payload.toString();
+                    } else {
+                        msg.payload = String(msg.payload);
+                    }
+
                     break;
 
                 case 'parse-float':

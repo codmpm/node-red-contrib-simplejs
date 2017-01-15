@@ -16,11 +16,6 @@
 </script>
 
 <script type="text/x-red" data-template-name="simplejs">
-    <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-    </div>
-
 
     <div class="form-row">
         <label for="node-input-func"><i class="fa fa-archive"></i> Function</label>
@@ -32,11 +27,15 @@
             <option value="is-nan">isNaN()</option>
             <option value="is-finite">isFinite()</option>
         </select>
+    </div>
 
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
     </div>
 
     <div class="form-tips">
-        <b>Tip:</b> If you are using isNaN() oder isFinite() the node
+        <b>Tip:</b> If you are using isNaN() or isFinite() the node
         won't return anything if the given <code>msg.payload</code> won't
         satisfy the function.
         <br>
