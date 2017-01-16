@@ -16,7 +16,7 @@ Functions
 
 The functions are documented here: http://www.w3schools.com/jsref/jsref_obj_global.asp
 
-_String()_ uses `toString()` is present on `msg.payload`.
+_String()_ uses `toString()` if present on `msg.payload`.
 
 Usage
 -
