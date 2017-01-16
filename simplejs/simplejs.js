@@ -5,25 +5,20 @@ module.exports = function (RED) {
         var node = this;
 
         this.func = config.func;
-        console.log(this.func);
 
         if (!this.func.length) {
-            console.log('no function given');
+            node.warn('invalid function');
             this.status({
-                fill: "red",
-                shape: "ring",
-                text: "invalid function"
+                fill: 'red',
+                shape: 'ring',
+                text: 'invalid function'
             });
-        } else {
-            this.status({});
+
+            return;
         }
+        this.status({});
 
         this.on('input', function (msg) {
-
-            if (!this.func.length) {
-                node.send(null);
-                return;
-            }
 
             this.status({});
 
@@ -47,16 +42,15 @@ module.exports = function (RED) {
                     msg.payload = parseInt(msg.payload);
                     break;
 
-
                 case 'is-nan':
-
                     if (!isNaN(msg.payload)) {
                         msg = null;
                         this.status({
-                            fill: "yellow",
-                            shape: "dot",
-                            text: "msg.payload is a number"
+                            fill: 'yellow',
+                            shape: 'dot',
+                            text: 'msg.payload is a number'
                         });
+                        node.warn('msg.payload is a number');
                     }
                     break;
 
@@ -64,12 +58,16 @@ module.exports = function (RED) {
                     if (!isFinite(msg.payload)) {
                         msg = null;
                         this.status({
-                            fill: "yellow",
-                            shape: "dot",
-                            text: "msg.payload is not a number"
+                            fill: 'yellow',
+                            shape: 'dot',
+                            text: 'msg.payload is not a number'
                         });
+                        node.warn('msg.payload is not a number');
                     }
                     break;
+
+                default:
+                    msg = null;
             }
 
             node.send(msg);
@@ -78,4 +76,4 @@ module.exports = function (RED) {
     }
 
     RED.nodes.registerType("simplejs", simpleJsNode);
-}
+};
