@@ -20,6 +20,7 @@ module.exports = function (RED) {
 
         this.on('input', function (msg) {
 
+            var funcStatus;
             this.status({});
 
             switch (this.func) {
@@ -45,24 +46,28 @@ module.exports = function (RED) {
                 case 'is-nan':
                     if (!isNaN(msg.payload)) {
                         msg = null;
-                        this.status({
+                        funcStatus = {
                             fill: 'yellow',
                             shape: 'dot',
                             text: 'msg.payload is a number'
-                        });
-                        node.warn('msg.payload is a number');
+                        };
+
+                        node.warn(funcStatus.text);
+                        this.status(funcStatus);
                     }
                     break;
 
                 case 'is-finite':
                     if (!isFinite(msg.payload)) {
                         msg = null;
-                        this.status({
+                        funcStatus = {
                             fill: 'yellow',
                             shape: 'dot',
                             text: 'msg.payload is not a number'
-                        });
-                        node.warn('msg.payload is not a number');
+                        };
+
+                        node.warn(funcStatus.text);
+                        this.status(funcStatus);
                     }
                     break;
 
