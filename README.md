@@ -14,7 +14,7 @@ Functions
 
 The functions are documented here: http://www.w3schools.com/jsref/jsref_obj_global.asp
 
-_String()_ uses `toString()` if present on `msg.property`.
+_String()_ uses `toString()` if present on `msg.<property>`.
 
 Usage
 -
