@@ -4,18 +4,19 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
         var node = this;
 
-        this.func = config.func;
-
-        if (!this.func.length) {
-            node.warn('invalid function');
-            this.status({
+        if (!config.func.length) {
+            var errStatus = {
                 fill: 'red',
                 shape: 'ring',
                 text: 'invalid function'
-            });
+            };
+
+            node.warn(errStatus.text);
+            this.status(errStatus);
 
             return;
         }
+
         this.status({});
 
         this.on('input', function (msg) {
@@ -23,56 +24,72 @@ module.exports = function (RED) {
             var funcStatus;
             this.status({});
 
-            switch (this.func) {
+            if (typeof msg[config.property] === 'undefined') {
 
-                case 'parse-str':
+                var errStatus = {
+                    fill: 'red',
+                    shape: 'ring',
+                    text: 'invalid property'
+                };
 
-                    if (typeof msg.payload.toString == 'function') {
-                        msg.payload = msg.payload.toString();
-                    } else {
-                        msg.payload = String(msg.payload);
-                    }
+                node.warn(errStatus.text);
+                this.status(errStatus);
 
-                    break;
+                msg = null;
 
-                case 'parse-float':
-                    msg.payload = parseFloat(msg.payload);
-                    break;
+            } else {
 
-                case 'parse-int':
-                    msg.payload = parseInt(msg.payload);
-                    break;
+                switch (config.func) {
 
-                case 'is-nan':
-                    if (!isNaN(msg.payload)) {
+                    case 'parse-str':
+
+                        if (typeof msg[config.property].toString == 'function') {
+                            msg[config.property] = msg[config.property].toString();
+                        } else {
+                            msg[config.property] = String(msg[config.property]);
+                        }
+
+                        break;
+
+                    case 'parse-float':
+                        msg[config.property] = parseFloat(msg[config.property]);
+                        break;
+
+                    case 'parse-int':
+                        msg[config.property] = parseInt(msg[config.property]);
+                        break;
+
+                    case 'is-nan':
+                        if (!isNaN(msg[config.property])) {
+                            msg = null;
+                            funcStatus = {
+                                fill: 'yellow',
+                                shape: 'dot',
+                                text: 'msg.' + config.property + ' is a number'
+                            };
+
+                            node.warn(funcStatus.text);
+                            this.status(funcStatus);
+                        }
+                        break;
+
+                    case 'is-finite':
+                        if (!isFinite(msg[config.property])) {
+                            msg = null;
+                            funcStatus = {
+                                fill: 'yellow',
+                                shape: 'dot',
+                                text: 'msg.' + config.property + ' is not a number'
+                            };
+
+                            node.warn(funcStatus.text);
+                            this.status(funcStatus);
+                        }
+                        break;
+
+                    default:
                         msg = null;
-                        funcStatus = {
-                            fill: 'yellow',
-                            shape: 'dot',
-                            text: 'msg.payload is a number'
-                        };
-
-                        node.warn(funcStatus.text);
-                        this.status(funcStatus);
-                    }
-                    break;
-
-                case 'is-finite':
-                    if (!isFinite(msg.payload)) {
-                        msg = null;
-                        funcStatus = {
-                            fill: 'yellow',
-                            shape: 'dot',
-                            text: 'msg.payload is not a number'
-                        };
-
-                        node.warn(funcStatus.text);
-                        this.status(funcStatus);
-                    }
-                    break;
-
-                default:
-                    msg = null;
+                }
             }
 
             node.send(msg);

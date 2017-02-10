@@ -4,8 +4,6 @@ This node implements some global JavaScript functions so you don't
 need to use a function-node everytime for simple conversions like 
 _parseFloat()_, _parseInt()_, etc.
 
-> This a work-in-progress node at the moment!!
-
 Functions
 -
 * [String()](http://www.w3schools.com/jsref/jsref_string.asp)
@@ -16,15 +14,15 @@ Functions
 
 The functions are documented here: http://www.w3schools.com/jsref/jsref_obj_global.asp
 
-_String()_ uses `toString()` if present on `msg.payload`.
+_String()_ uses `toString()` if present on `msg.property`.
 
 Usage
 -
 Simply drag the node to your flow and select a desired function
-in the dropdown. If you want, define a name. Otherwise a function 
-acronym is shown as name of the node.
+in the dropdown. If you want, define a name. Otherwise the function 
+name with the desired property is shown.
 
-The node currently only works on `msg.payload`!
+The node only works on the `msg`-object!
 
 Keep in mind, that if a function can not return anything or the 
 function evaluates to false, the node will return `null` and your

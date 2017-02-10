@@ -1,21 +1,42 @@
 <script type="text/javascript">
+
+    var funcNames = {
+        'parse-str': 'parseStr',
+        'parse-float': 'parseFloat',
+        'parse-int': 'parseInt',
+        'is-nan': 'isNaN',
+        'is-finite': 'isFinite'
+    };
+
     RED.nodes.registerType('simplejs', {
         category: 'function',
         color: '#fdd0a2',
         defaults: {
-            name: {value: ""},
-            func: {value: ""}
+            func: {value: '', required: true},
+            property: {value: 'payload', required: true},
+            name: {value: ''}
         },
         inputs: 1,
         outputs: 1,
-        icon: "function.png",
+        icon: 'function.png',
         label: function () {
-            return this.name || this.func || "simplejs";
+            return this.name || funcNames[this.func] + '(msg.' + this.property + ')' || 'simplejs';
         }
     });
 </script>
 
 <script type="text/x-red" data-template-name="simplejs">
+
+    <div class="form-row">
+        <label for="node-input-property"><i class="fa fa-bookmark"></i> Property</label>
+        <div style="width: 252px; margin-right: 0px; margin-left: 0px;" class="red-ui-typedInput-container">
+            <button><span>msg.</span></button>
+            <div class="red-ui-typedInput-input" style="left: 45px; right: 0px;">
+                <input type="text" id="node-input-property" class="red-ui-typedInput" style="margin-right: 0px; margin-left: 0px;">
+            </div>
+        </div>
+
+    </div>
 
     <div class="form-row">
         <label for="node-input-func"><i class="fa fa-archive"></i> Function</label>
@@ -51,13 +72,19 @@
         <br>
         Implemented are <i>String()</i>, <i>parseFloat()</i>, <i>parseInt()</i>, <i>isNaN()</i> and <i>isFinite()</i>.
         <br>
-        Currently the node can only be used for <code>msg.payload</code>
+        The node can only be used for the <code>msg</code>-object
 
         <br>
         <br>
         More information on these functions can be obtained here:
         <a href="http://www.w3schools.com/jsref/jsref_obj_global.asp" target="_blank">
             http://www.w3schools.com/jsref/jsref_obj_global.asp
+        </a>
+        <br>
+        <br>
+        by Patrik Mayer, 2017<br>
+        <a href="https://github.com/codmpm/node-red-contrib-simplejs" target="_blank">
+            https://github.com/codmpm/node-red-contrib-simplejs
         </a>
     </p>
 </script>
