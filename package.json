@@ -4,10 +4,10 @@
   "description"  : "A node to use simple JS functions throughout your flow",
   "dependencies": {
   },
-  "keywords": [ ],
+  "keywords": [ "node-red" ],
   "node-red"     : {
     "nodes": {
-      "sample": "simplejs/simplejs.js"
+      "simplejs": "simplejs/simplejs.js"
     }
   }
 }
