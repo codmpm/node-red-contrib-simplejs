@@ -1,7 +1,7 @@
 node-red-contrib-simplejs
 =
 This node implements some global JavaScript functions so you don't 
-need to use a function-node everytime you need a simple conversions like 
+need to use a function-node everytime you need a simple conversion like 
 _parseFloat()_, _parseInt()_, etc.
 
 Functions
