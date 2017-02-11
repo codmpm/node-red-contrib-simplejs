@@ -4,7 +4,7 @@
   "description": "A node to use simple JavaScript functions throughout your flow",
   "license": "MIT",
   "keywords": [
-    "node-red"
+    "node-red", "javascript"
   ],
   "node-red": {
     "nodes": {
