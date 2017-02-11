@@ -19,8 +19,8 @@ _String()_ uses `toString()` if present on `msg.<property>`.
 Usage
 -
 Simply drag the node to your flow and select a desired function
-in the dropdown. If you want, define a name. Otherwise the function 
-name with the desired property is shown.
+in the dropdown and tweak the wanted object property. If you want, define a name. 
+Otherwise the function name with the desired property is shown.
 
 The node only works on the `msg`-object!
 
