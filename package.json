@@ -1,7 +1,7 @@
 {
   "name": "node-red-contrib-simplejs",
-  "version": "0.0.3",
-  "description": "A node to use simple JavaScript functions throughout your flow",
+  "version": "0.0.4",
+  "description": "parseFloat(), parseInt(), String(), isNaN(), isFinite() in a node",
   "license": "MIT",
   "keywords": [
     "node-red", "javascript"

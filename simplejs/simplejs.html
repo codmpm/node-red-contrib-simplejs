@@ -1,7 +1,7 @@
 <script type="text/javascript">
 
     var funcNames = {
-        'parse-str': 'parseStr',
+        'parse-str': 'String',
         'parse-float': 'parseFloat',
         'parse-int': 'parseInt',
         'is-nan': 'isNaN',
@@ -20,7 +20,22 @@
         outputs: 1,
         icon: 'function.png',
         label: function () {
-            return this.name || funcNames[this.func] + '(msg.' + this.property + ')' || 'simplejs';
+
+            if (this.name) {
+                return this.name;
+            }
+
+            if (typeof funcNames[this.func] != 'undefined') {
+                return funcNames[this.func] + '(msg.' + this.property + ')'
+            }
+
+            return 'simplejs';
+        },
+        oneditprepare: function () {
+            $("#node-input-property").typedInput({
+                typeField: $("#node-input-propertyType"),
+                types: ['msg']
+            });
         }
     });
 </script>
@@ -29,13 +44,8 @@
 
     <div class="form-row">
         <label for="node-input-property"><i class="fa fa-bookmark"></i> Property</label>
-        <div style="width: 252px; margin-right: 0px; margin-left: 0px;" class="red-ui-typedInput-container">
-            <button><span>msg.</span></button>
-            <div class="red-ui-typedInput-input" style="left: 45px; right: 0px;">
-                <input type="text" id="node-input-property" class="red-ui-typedInput" style="margin-right: 0px; margin-left: 0px;">
-            </div>
-        </div>
-
+        <input type="text" id="node-input-property" style="width: 70%;">
+        <input type="hidden" id="node-input-propertyType">
     </div>
 
     <div class="form-row">
@@ -64,6 +74,7 @@
         return anything.
     </div>
 
+
 </script>
 
 <script type="text/x-red" data-help-name="simplejs">
@@ -87,4 +98,5 @@
             https://github.com/codmpm/node-red-contrib-simplejs
         </a>
     </p>
+
 </script>
